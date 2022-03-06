@@ -1,0 +1,33 @@
+# In _config.yml
+title: SS_IAPC
+author: IAPC-JEBV
+logo: logoSS.png
+execute:
+  execute_notebooks: force
+
+notebook_interface            : "notebook"
+
+launch_buttons:
+  thebe                  : true
+  colab_url: "https://colab.research.google.com"
+
+binder:
+  binderhub_url               : "https://mybinder.org"
+  text                        : "Launch binder"
+
+latex:
+  latex_engine                : "xelatex"
+  latex_documents:
+    targetname: book.tex
+
+sphinx:
+  config:
+    html_js_files:
+      - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+      - https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+    - linkify
