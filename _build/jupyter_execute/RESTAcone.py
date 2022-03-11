@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Suma de dos vectores
+# # Resta de dos vectores
 
 # Consideremos dos vectores, $\vec{P}$ y $\vec{Q}$, de los cuales conocemos sus componentes cartesianas. Es decir, tenemos que
 # 
@@ -15,20 +15,20 @@
 # 
 # Alternativamente, podemos escribir $\vec{P} = P_x\hat{\imath}+P_y\hat{\jmath}+P_z\hat{k}$ y $\vec{Q} = Q_x\hat{\imath}+Q_y\hat{\jmath}+Q_z\hat{k}$; donde $\hat{\imath}$, $\hat{\jmath}$ y $\hat{k}$ son los vectores unitarios en la dirección de $X$, $Y$ y $Z$ respectivamente.
 # 
-# La suma de dos vectores da como resultado otro vector, $\vec{R}=\vec{P}+\vec{Q}$, cuyas componentes están dadas por 
+# La resta de dos vectores da como resultado otro vector, $\vec{R}=\vec{P}-\vec{Q}$, cuyas componentes están dadas por 
 # 
 # \begin{align*}
-# \vec{R} = ( P_x+Q_x,P_y+Q_y,P_z+Q_z  )\,.
+# \vec{R} = ( P_x-Q_x,P_y-Q_y,P_z-Q_z  )\,.
 # \end{align*}
 # 
-# Alternativamente podemos escribir el vector resultante de la suma de la forma $\vec{R}=(P_x+Q_x)\hat{\imath}+(P_y+Q_y)\hat{\jmath}+(P_z+Q_z)\hat{k}$.
+# Alternativamente podemos escribir el vector resultante de la suma de la forma $\vec{R}=(P_x-Q_x)\hat{\imath}+(P_y-Q_y)\hat{\jmath}+(P_z-Q_z)\hat{k}$.
 # 
-# De forma gráfica, la suma de vectores se obtiene colocando el primer vector, $\vec{P}$, en el origen y después colocando el segundo vector, $\vec{Q}$, donde termina $\vec{P}$. El vector resultante de la suma, $\vec{R}$, será el vector desde el origen hasta el punto donde terminar el vector $\vec{Q}$. A continuación se muestra la construcción antes mencionada tomando como ejemplo los siguientes vectores:
+# De forma gráfica, la suma de vectores se obtiene colocando el primer vector, $\vec{P}$, en el origen y después colocando menos el segundo vector, $-\vec{Q}$, donde termina $\vec{P}$. Recuerda que el vector $-\vec{Q}$ es el vector $\vec{Q}$ en la dirección opuesta. El vector resultante de la suma, $\vec{R}$, será el vector desde el origen hasta el punto donde terminar el vector $\vec{Q}$. A continuación se muestra la construcción antes mencionada tomando como ejemplo los siguientes vectores:
 # 
 # \begin{align*}
 # \vec{P}&=(-2,5,2)\\
 # \vec{Q}&=(1,2,6)\\
-# \vec{R}&=(-2+1,5+2,2+6)=(-1,7,8) 
+# \vec{R}&=(-2-1,5-2,2-6)=(-3,3,-4) 
 # \end{align*}
 
 # In[1]:
@@ -42,8 +42,8 @@ import plotly.graph_objects as go
 
 
 P = array( [-2,5,2] )
-Q = array( [1,2,6] )
-R = P + Q
+Q = array( [ 1,2,6] )
+R = P - Q
 
 
 # In[3]:
@@ -66,7 +66,7 @@ Shift = 0.2*Tip
 ShiftR = 3*Tip
 # Dirección de los vectores
 Punit = P/sqrt(dot(P,P))
-Qunit = Q/sqrt(dot(Q,Q))
+Qunit = -Q/sqrt(dot(Q,Q))
 Runit = R/sqrt(dot(R,R))
 
 # Vector P
@@ -83,16 +83,16 @@ VecP = go.Scatter3d(x=[0,P[0]-Tip*Punit[0]],
                     mode="lines",showlegend=False,
                     line=dict(width=10,color=ColorP))
 # Vector Q
-TipQ = go.Cone(x=[P[0]+Q[0]],y=[P[1]+Q[1]],z=[P[2]+Q[2]],
+TipQ = go.Cone(x=[P[0]-Q[0]],y=[P[1]-Q[1]],z=[P[2]-Q[2]],
                u=[Tip*Qunit[0]],v=[Tip*Qunit[1]],w=[Tip*Qunit[2]],
                colorscale=[[0, ColorQ],[1.0, ColorQ]],
                sizemode="absolute",
                sizeref=1.0,
                anchor="tip",
                showscale=False)
-VecQ = go.Scatter3d(x=[P[0],P[0]+Q[0]-Tip*Qunit[0]],
-                    y=[P[1],P[1]+Q[1]-Tip*Qunit[1]],
-                    z=[P[2],P[2]+Q[2]-Tip*Qunit[2]],
+VecQ = go.Scatter3d(x=[P[0],P[0]-Q[0]-Tip*Qunit[0]],
+                    y=[P[1],P[1]-Q[1]-Tip*Qunit[1]],
+                    z=[P[2],P[2]-Q[2]-Tip*Qunit[2]],
                     mode="lines",showlegend=False,
                     line=dict(width=10,color=ColorQ))
 # Vector R
@@ -170,7 +170,7 @@ scene = dict(xaxis_title='',yaxis_title='',zaxis_title='',
       dict(showarrow=False,x=P[0]+Shift,y=P[1]+Shift,z=P[2]+Shift,
            text=r"$\vec{P}$",xanchor="center",
            opacity=1.0,font=dict(size=50,color=ColorP)),
-      dict(showarrow=False,x=P[0]+Q[0]+Shift,y=P[1]+Q[1]+Shift,z=P[2]+Q[2]+Shift,
+      dict(showarrow=False,x=P[0]-Q[0]+Shift,y=P[1]-Q[1]+Shift,z=P[2]-Q[2]+Shift,
            text=r"$\vec{Q}$",xanchor="center",
            opacity=1.0,font=dict(size=50,color=ColorQ)),
       dict(showarrow=False,
